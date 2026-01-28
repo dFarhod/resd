@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Media Query Demo</title>
+    <style>
+        /* Mobile first - kichik ekranlar uchun */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #ff0000; /* RED for mobile */
+            color: white;
+            min-height: 100vh;
+            padding: 20px;
+            transition: background-color 0.5s ease;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+        }
+        
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+        
+        .screen-info {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .info-box {
+            background: rgba(0, 0, 0, 0.4);
+            padding: 20px;
+            border-radius: 8px;
+            flex: 1;
+            min-width: 250px;
+        }
+        
+        .color-indicator {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+        }
+        
+        .color-box {
+            width: 50px;
+            height: 50px;
+            border-radius: 8px;
+            margin-right: 15px;
+            border: 2px solid white;
+        }
+        
+        .color-red { background-color: #ff0000; }
+        .color-blue { background-color: #0000ff; }
+        .color-green { background-color: #00ff00; }
+        
+        .current-screen {
+            text-align: center;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            font-size: 1.2rem;
+        }
+        
+        .breakpoints {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 30px;
+        }
+        
+        .breakpoints ul {
+            list-style-position: inside;
+            margin-left: 10px;
+        }
+        
+        .breakpoints li {
+            margin: 8px 0;
+        }
+        
+        /* Tablet - 600px va undan katta */
+        @media (min-width: 600px) {
+            body {
+                background-color: #0000ff; /* BLUE for tablet */
+            }
+            
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            .current-screen::before {
+                content: "📱 Tablet o'lchami: ";
+                font-weight: bold;
+            }
+        }
+        
+        /* Desktop - 900px va undan katta */
+        @media (min-width: 900px) {
+            body {
+                background-color: #00ff00; /* GREEN for desktop */
+            }
+            
+            h1 {
+                font-size: 3rem;
+            }
+            
+            .current-screen::before {
+                content: "💻 Desktop o'lchami: ";
+                font-weight: bold;
+            }
+        }
+        
+        /* Katta desktop - 1200px va undan katta */
+        @media (min-width: 1200px) {
+            .current-screen::before {
+                content: "🖥️ Katta desktop o'lchami: ";
+                font-weight: bold;
+            }
+        }
+        
+        /* Responsive tweaks for mobile */
+        @media (max-width: 599px) {
+            .current-screen::before {
+                content: "📱 Mobil o'lchami: ";
+                font-weight: bold;
+            }
+        }
+        
+        /* Print media query */
+        @media print {
+            body {
+                background-color: white !important;
+                color: black;
+            }
+            
+            .screen-info, .breakpoints {
+                display: none;
+            }
+        }
+        
+        /* Dark mode support */
+        @media (prefers-color-scheme: dark) {
+            body {
+                color: #f0f0f0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Media Query Demo</h1>
+            <p>Ekran o'lchamiga qarab fon rangi o'zgaradi</p>
+        </header>
+        
+        <div class="current-screen">
+            Hozirgi ekran o'lchami: <span id="screen-size">0px</span>
+        </div>
+        
+        <div class="screen-info">
+            <div class="info-box">
+                <h2>Fon ranglari:</h2>
+                <div class="color-indicator">
+                    <div class="color-box color-red"></div>
+                    <div class="color-text">Mobil (< 600px): Qizil</div>
+                </div>
+                <div class="color-indicator">
+                    <div class="color-box color-blue"></div>
+                    <div class="color-text">Tablet (600px - 899px): Ko'k</div>
+                </div>
+                <div class="color-indicator">
+                    <div class="color-box color-green"></div>
+                    <div class="color-text">Desktop (900px+): Yashil</div>
+                </div>
+            </div>
+            
+            <div class="info-box">
+                <h2>Media Query breakpoints:</h2>
+                <div class="breakpoints">
+                    <ul>
+                        <li><strong>@media (min-width: 600px)</strong> - Tablet va undan katta</li>
+                        <li><strong>@media (min-width: 900px)</strong> - Desktop va undan katta</li>
+                        <li><strong>@media (min-width: 1200px)</strong> - Katta desktop</li>
+                        <li><strong>@media (max-width: 599px)</strong> - Mobil (kichik ekran)</li>
+                        <li><strong>@media print</strong> - Chop etish uchun</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <div class="info-box">
+            <h2>Qo'llanma:</h2>
+            <p>Brauzer oynasining o'lchamini o'zgartiring va fon rangi qanday o'zgarishini kuzating:</p>
+            <ol style="margin-left: 20px; margin-top: 10px;">
+                <li>Oynani toraytiring - qizil rang paydo bo'ladi (mobil)</li>
+                <li>Oynani kengaytiring (600px dan katta) - ko'k rangga o'zgaradi (tablet)</li>
+                <li>900px dan katta qiling - yashil rangga o'zgaradi (desktop)</li>
+            </ol>
+        </div>
+    </div>
+
+    <script>
+        // Ekran o'lchamini real vaqtda ko'rsatish
+        function updateScreenSize() {
+            const screenSizeElement = document.getElementById('screen-size');
+            screenSizeElement.textContent = window.innerWidth + 'px';
+        }
+        
+        // Dastlab ekran o'lchamini ko'rsatish
+        updateScreenSize();
+        
+        // Oyna o'lchami o'zgarganda yangilash
+        window.addEventListener('resize', updateScreenSize);
+        
+        // Oynani buzib o'zgartirish uchun tugma (test qilish uchun)
+        console.log("Ekran o'lchami testi:");
+        console.log("- 600px dan kichik: Qizil fon");
+        console.log("- 600px-899px: Ko'k fon");
+        console.log("- 900px+ : Yashil fon");
+    </script>
+</body>
+</html>
